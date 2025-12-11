@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { collection, doc, setDoc, updateDoc, deleteDoc, onSnapshot, query, getDocs, increment } from 'firebase/firestore';
-import { db } from '../../firebase';
-// import Leaderboard from '../components/Leaderboard';
+// Use the project's Firebase config (with actual keys) instead of the root file
+import { db } from '../firebase';
 import Quiz from './Quiz';
+import Leaderboard from './Leaderboard';
 
 const AdminPanel = () => {
   const [sessions, setSessions] = useState([]);
@@ -253,8 +254,8 @@ const AdminPanel = () => {
               <input
                 type="text"
                 value={newSessionId}
+                className="px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-purple-500` focus:outline-non text-black"
                 onChange={(e) => setNewSessionId(e.target.value)}
-                className="px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none"
                 placeholder="Nhập mã phòng"
                 required
               />
@@ -286,7 +287,7 @@ const AdminPanel = () => {
                   }`}
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-bold text-lg">{session.id}</span>
+                    <span className="font-bold text-lg text-black">{session.id}</span>
                     <span className="text-2xl">
                       {getStatusIcon(session.status)}
                     </span>
@@ -440,11 +441,11 @@ const AdminPanel = () => {
                 </div>
 
             {/* Right Column: Sticky Leaderboard */}
-            {/* <div className="lg:col-span-1">
+            <div className="lg:col-span-1">
               <div className="lg:sticky lg:top-6">
                 <Leaderboard sessionId={selectedSession} />
               </div>
-            </div> */}
+            </div>
           </div>
         )}
       </div>

@@ -12,6 +12,7 @@ import LoadingIntro from './components/LoadingIntro';
 import SupplyLine from './components/SupplyLine';
 import { Volume2, VolumeX } from 'lucide-react';
 import ChatWidget from './components/ChatWidget';
+import Room from './components/Room';
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -78,7 +79,7 @@ const App: React.FC = () => {
         <SectionSplit />
         <Leadership />
         <TrailSection />
-        <Quiz />
+        <Room />
         <ChatWidget theme="dark" />
         
         {/* Simple Footer replacing Closing section */}
