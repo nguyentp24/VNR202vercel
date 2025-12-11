@@ -10,7 +10,7 @@ const navItems = [
   { id: 'regions', label: 'Hai miền' },
   { id: 'leadership', label: 'Lãnh đạo' },
   { id: 'map', label: 'Bản đồ' },
-  { id: 'quiz', label: 'Trắc nghiệm' },
+  { id: 'room', label: 'Trắc nghiệm' },
 ];
 
 const Navbar: React.FC = () => {

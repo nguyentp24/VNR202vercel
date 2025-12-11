@@ -42,16 +42,15 @@ const Quiz: React.FC = () => {
   };
 
   return (
-    <section id="quiz" className="py-24 bg-slate-900 text-white relative overflow-hidden">
-      <div className="absolute inset-0 bg-grain opacity-5"></div>
+    <section id="quiz" className=" bg-slate-900 text-white relative overflow-hidden">
       <div className="container mx-auto px-4 max-w-4xl relative z-10">
         
-        <div className="text-center mb-12">
+        {/* <div className="text-center mb-12">
           <span className="text-party-red font-bold tracking-widest uppercase">Kiểm tra kiến thức</span>
           <h2 className="text-3xl md:text-5xl font-serif font-bold mt-2 text-party-gold">
             Đấu Trường Lịch Sử
           </h2>
-        </div>
+        </div> */}
 
         {!isCompleted ? (
           <div className="bg-slate-800 rounded-2xl shadow-2xl overflow-hidden border border-slate-700">
@@ -125,7 +124,7 @@ const Quiz: React.FC = () => {
                 )}
               </AnimatePresence>
 
-              <div className="mt-8 flex justify-end">
+              {/* <div className="mt-8 flex justify-end">
                 <button
                   onClick={handleNextQuestion}
                   disabled={!isAnswered}
@@ -137,7 +136,7 @@ const Quiz: React.FC = () => {
                 >
                   {currentQuestionIndex === QUIZ_DATA.length - 1 ? 'Xem kết quả' : 'Câu tiếp theo'}
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         ) : (

@@ -74,7 +74,7 @@ const Hero: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, y: [0, 10, 0] }}
         transition={{ delay: 2, duration: 2, repeat: Infinity }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 text-white flex flex-col items-center cursor-pointer"
+        className="absolute bottom-10 left-[45%] -translate-x-1/2 z-20 text-white flex flex-col items-center cursor-pointer"
         onClick={() => document.getElementById('timeline')?.scrollIntoView({ behavior: 'smooth' })}
       >
         <span className="text-xs uppercase tracking-widest mb-2">Bắt đầu hành trình</span>
