@@ -155,7 +155,7 @@ const QuizTest: React.FC<QuizTestProps> = ({
     );
   }
 
-  const total = totalQuestions ?? currentQuestionIndex + 1;
+  const total = 12;
 
   return (
     <section className="bg-slate-900 text-white relative overflow-hidden">
@@ -224,7 +224,6 @@ const QuizTest: React.FC<QuizTestProps> = ({
               })}
             </div>
 
-            {/* Thông báo chờ công bố kết quả */}
             {isSubmitted && !isAdmin && !revealAnswers && (
               <div className="mt-6 p-6 bg-gradient-to-r from-blue-50/10 to-purple-50/10 rounded-lg border-2 border-blue-200/40 text-center">
                 <div className="animate-pulse text-4xl mb-3">⏳</div>
@@ -237,40 +236,14 @@ const QuizTest: React.FC<QuizTestProps> = ({
               </div>
             )}
 
-            {/* Kết quả khi revealAnswers = true */}
             {revealAnswers && (
               <motion.div 
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 className="mt-6 bg-slate-900/50 p-4 rounded-lg border-l-4 border-party-gold"
               >
-                {/* <div className="text-center mb-4">
-                  {selectedAnswer && isCorrectOption(selectedAnswer.index, selectedAnswer.value) ? (
-                    <>
-                      <p className="text-2xl font-bold text-green-500 mb-1">
-                        ✅ Chính xác! +{earnedScore} điểm
-                      </p>
-                      {earnedScore > 100 && (
-                        <p className="text-sm text-purple-300">
-                          ⚡ Time Bonus: +{earnedScore - 100} điểm
-                        </p>
-                      )}
-                    </>
-                  ) : (
-                    <p className="text-2xl font-bold text-red-400">
-                      {isAdmin ? 'Đáp án' : (selectedAnswer ? '❌ Chưa chính xác!' : '❌ Chưa trả lời!')}
-                    </p>
-                  )}
-                </div> */}
 
                 <div className="bg-slate-800/70 p-4 rounded-lg">
-                  {/* <p className="text-sm text-slate-400 mb-2">Đáp án đúng:</p>
-                  <p className="font-bold text-green-400 mb-3">
-                    {typeof currentQuestion.correctAnswer === 'number'
-                      ? `${String.fromCharCode(65 + currentQuestion.correctAnswer)}. ${currentQuestion.options[currentQuestion.correctAnswer]}`
-                      : currentQuestion.correctAnswer}
-                  </p>
-                   */}
                   {currentQuestion.explanation && (
                     <>
                       <p className="text-sm text-slate-400 mb-2">Giải thích:</p>

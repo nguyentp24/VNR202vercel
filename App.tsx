@@ -85,7 +85,7 @@ const App: React.FC = () => {
         {/* Simple Footer replacing Closing section */}
         <footer className="bg-slate-900 py-8 border-t border-slate-800 text-center">
            <p className="text-slate-500 text-sm">
-             © 2023 Lịch sử Đảng Cộng sản Việt Nam - Dự án Thuyết trình Giáo dục
+             © 2021 Lịch sử Đảng Cộng sản Việt Nam - Dự án Thuyết trình Giáo dục
            </p>
         </footer>
       </main>
