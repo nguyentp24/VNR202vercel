@@ -54,7 +54,7 @@ const Leaderboard = ({ sessionId }) => {
   };
 
   return (
-    <div className="bg-slate-800 rounded-lg shadow-lg p-6">
+    <div className=" w-full bg-slate-800 rounded-lg shadow-lg p-6">
       <h2 className="text-2xl font-bold text-center mb-6 text-purple-600">
         🏆 Bảng Xếp Hạng
       </h2>

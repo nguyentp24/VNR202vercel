@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { doc, getDoc, setDoc, onSnapshot, collection, query } from 'firebase/firestore';
 import { db } from '../firebase';
-import Quiz from './Quiz';
+import QuizTest from './QuizTest';
 import Leaderboard from '../components/Leaderboard';
 
 const QuizPage = () => {
@@ -225,7 +225,7 @@ const QuizPage = () => {
         {sessionData?.status === 'in-progress' && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2">
-              <Quiz
+              <QuizTest
                 sessionId={sessionId}
                 playerId={playerId}
                 currentQuestion={currentQuestion}

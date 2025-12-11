@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, doc, setDoc, updateDoc, deleteDoc, onSnapshot, query, getDocs, increment } from 'firebase/firestore';
 // Use the project's Firebase config (with actual keys) instead of the root file
 import { db } from '../firebase';
-import Quiz from './Quiz';
+import QuizTest from './QuizTest';
 import Leaderboard from './Leaderboard';
 
 const AdminPanel = () => {
@@ -410,7 +410,7 @@ const AdminPanel = () => {
                           📺 Live Preview 
                         </h3>
                       </div>
-                      <Quiz
+                      <QuizTest
                         sessionId={selectedSession}
                         playerId="admin"
                         currentQuestion={questions[sessionData?.currentQuestionIndex]}
