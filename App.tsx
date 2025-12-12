@@ -4,7 +4,6 @@ import Hero from './components/Hero';
 import Timeline from './components/Timeline';
 import SectionSplit from './components/SectionSplit';
 import Leadership from './components/Leadership';
-import TrailSection from './components/TrailSection';
 import Quiz from './components/Quiz';
 import Navbar from './components/Navbar';
 import Knowledge from './components/Knowledge';
@@ -12,6 +11,7 @@ import LoadingIntro from './components/LoadingIntro';
 import SupplyLine from './components/SupplyLine';
 import { Volume2, VolumeX } from 'lucide-react';
 import ChatWidget from './components/ChatWidget';
+import Map from './components/MapSection';
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -77,7 +77,7 @@ const App: React.FC = () => {
         <SupplyLine />
         <SectionSplit />
         <Leadership />
-        <TrailSection />
+        <Map />
         <Quiz />
         <ChatWidget theme="dark" />
         
