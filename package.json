@@ -5,14 +5,18 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "start": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "setup": "node setupQuestions.js"
   },
   "dependencies": {
-    "react": "^19.2.1",
+    "firebase": "^12.6.0",
     "framer-motion": "^12.23.25",
     "lucide-react": "^0.556.0",
-    "react-dom": "^19.2.1"
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
+    "react-router-dom": "^6.28.0"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
