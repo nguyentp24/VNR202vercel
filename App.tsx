@@ -79,8 +79,6 @@ const App: React.FC = () => {
         <SectionSplit />
         <Leadership />
         <Map />
-        <Quiz />
-        <TrailSection />
         <Room />
         <ChatWidget theme="dark" />
         

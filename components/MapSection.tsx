@@ -289,7 +289,7 @@ const MapSection: React.FC = () => {
                     whileInView={{ pathLength: 1 }}
                     transition={{ duration: 1 }}
                   />
-                  <text x="67" y="24.5" fill="#fbbf24" fontSize="2.5" fontWeight="bold">Vĩ tuyến 17</text>
+                  <text x="67" y="41" fill="#fbbf24" fontSize="2.5" fontWeight="bold">Vĩ tuyến 17</text>
 
                   {/* Đường Hồ Chí Minh trên bộ (Đường Trường Sơn) */}
                   {/* Chạy dọc phía tây Việt Nam, men theo dãy Trường Sơn trong lãnh thổ VN */}
