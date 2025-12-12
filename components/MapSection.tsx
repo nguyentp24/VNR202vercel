@@ -38,19 +38,19 @@ const getPointColor = (type?: string, isActive?: boolean) => {
 // Tọa độ các điểm trên bản đồ (% so với kích thước ảnh)
 // Dựa trên bản đồ Việt Nam thực tế
 const MAP_COORDINATES: { [key: string]: { x: number; y: number } } = {
-  'hn': { x: 52, y: 13 },           // Hà Nội
-  'd559': { x: 48, y: 16 },         // Đoàn 559 (gần Hà Nội, điểm xuất phát)
+  'hn': { x: 44, y: 16 },           // Hà Nội
+  'd559': { x: 55, y: 42 },         // Đoàn 559 (gần Hà Nội, điểm xuất phát)
   'd759': { x: 58, y: 18 },         // Đoàn 759 (Hải Phòng - đường biển)
-  'ts1': { x: 38, y: 28 },          // Đường Trường Sơn - Bắc (Quảng Bình)
-  'ts2': { x: 35, y: 42 },          // Đường Trường Sơn - Trung (Tây Nguyên)
-  'ts3': { x: 42, y: 58 },          // Đường Trường Sơn - Nam
-  'tay_nguyen': { x: 48, y: 52 },   // Tây Nguyên (Kon Tum, Gia Lai)
-  'rung_sac': { x: 58, y: 75 },     // Rừng Sác (gần TP.HCM)
-  'cu_chi': { x: 52, y: 73 },       // Củ Chi
-  'sg': { x: 55, y: 76 },           // Sài Gòn
-  'bt': { x: 52, y: 82 },           // Bến Tre
-  'tay_ninh': { x: 45, y: 74 },     // Tây Ninh
-  'ap_bac': { x: 54, y: 80 },       // Ấp Bắc (Mỹ Tho)
+  'ts1': { x: 50, y: 40 },          // Đường Trường Sơn - Bắc (Quảng Bình)
+  'ts2': { x: 71, y: 66 },          // Đường Trường Sơn - Trung (Tây Nguyên)
+  'ts3': { x: 67, y: 78 },          // Đường Trường Sơn - Nam
+  'tay_nguyen': { x: 65, y: 59 },   // Tây Nguyên (Kon Tum, Gia Lai)
+  'rung_sac': { x: 58, y: 82 },     // Rừng Sác (gần TP.HCM)
+  'cu_chi': { x: 55, y: 81 },       // Củ Chi
+  'sg': { x: 55, y: 82 },           // Sài Gòn
+  'bt': { x: 52, y: 87 },           // Bến Tre
+  'tay_ninh': { x: 46, y: 78 },     // Tây Ninh
+  'ap_bac': { x: 49, y: 84 },       // Ấp Bắc (Mỹ Tho)
 };
 
 const MapSection: React.FC = () => {
@@ -281,7 +281,7 @@ const MapSection: React.FC = () => {
 
                   {/* Vĩ tuyến 17 - Demarcation Line */}
                   <motion.line 
-                    x1="25" y1="24" x2="65" y2="24" 
+                    x1="25" y1="42" x2="80" y2="42" 
                     stroke="#fbbf24" 
                     strokeWidth="0.5" 
                     strokeDasharray="2 1"
@@ -298,13 +298,13 @@ const MapSection: React.FC = () => {
                        Q 44 13, 45 15
                        Q 46 18, 46 21
                        Q 45 24, 44 27
-                       Q 43 30, 43 33
-                       Q 44 37, 46 41
-                       Q 48 45, 49 49
-                       Q 50 53, 50 57
-                       Q 50 61, 49 65
-                       Q 48 69, 48 73
-                       Q 49 77, 51 81
+                       Q 43 33, 52 40
+                       Q 51 39, 56 44
+                       Q 61 47, 65 51
+                       Q 65 51, 70 58
+                       Q 76 70, 73 67
+                       Q 75 69, 70 73
+                       Q 62 79, 62 79
                        Q 53 84, 55 87"
                     stroke="url(#redGradient)"
                     strokeWidth="1.5"
@@ -319,7 +319,7 @@ const MapSection: React.FC = () => {
                   
                   {/* Nhánh phụ vào Sài Gòn - Củ Chi - Tây Ninh */}
                   <motion.path
-                    d="M 49 73 Q 52 75, 55 77"
+                    d="M 56 82, 49 78"
                     stroke="#DC2626"
                     strokeWidth="1"
                     fill="transparent"
@@ -333,18 +333,13 @@ const MapSection: React.FC = () => {
                   {/* Đường Hồ Chí Minh trên biển */}
                   {/* Ôm sát bờ biển phía đông Việt Nam từ Hải Phòng đến miền Nam */}
                   <motion.path
-                    d="M 52 11
-                       Q 55 13, 57 16
+                    d="M 59 20
                        Q 58 19, 58 22
                        Q 57 25, 56 28
                        Q 55 32, 56 36
-                       Q 58 40, 60 44
-                       Q 62 48, 64 52
-                       Q 66 56, 67 60
-                       Q 67 64, 66 68
-                       Q 64 72, 62 76
-                       Q 60 80, 58 84
-                       Q 57 87, 56 89"
+                       Q 59 40, 70 45 
+                       Q 95 60, 79 84
+                       Q 72 89, 65 85"
                     stroke="url(#blueGradient)"
                     strokeWidth="1.2"
                     fill="transparent"
@@ -358,7 +353,7 @@ const MapSection: React.FC = () => {
 
                   {/* Nhánh vào Rừng Sác và vùng ven biển miền Nam */}
                   <motion.path
-                    d="M 64 72 Q 61 75, 58 77"
+                    d="M 66 85, 59 84"
                     stroke="#3B82F6"
                     strokeWidth="0.6"
                     fill="transparent"

@@ -4,7 +4,7 @@ import { X, MessageSquare, Send, Loader2, Sparkles } from "lucide-react";
 
 const ChatWidget = ({ theme }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([{ role: 'ai', content: 'Kính chào quý khách. Tôi có thể hỗ trợ thông tin gì về hiện vật này?' }]);
+  const [messages, setMessages] = useState([{ role: 'ai', content: 'Xin chào, tôi có thể hỗ trợ gì cho bạn?' }]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef(null);
