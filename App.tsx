@@ -1,15 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Hero from './components/Hero';
 import Timeline from './components/Timeline';
 import SectionSplit from './components/SectionSplit';
 import Leadership from './components/Leadership';
-import Quiz from './components/Quiz';
 import Navbar from './components/Navbar';
 import Knowledge from './components/Knowledge';
 import LoadingIntro from './components/LoadingIntro';
 import SupplyLine from './components/SupplyLine';
-import { Volume2, VolumeX } from 'lucide-react';
+import { Volume2, VolumeX, Star } from 'lucide-react';
 import ChatWidget from './components/ChatWidget';
 import Map from './components/MapSection';
 import Room from './components/Room';
@@ -19,7 +18,6 @@ const App: React.FC = () => {
   const [isMuted, setIsMuted] = useState(true);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // Auto-play attempt on scroll interaction if blocked initially
   useEffect(() => {
     const handleFirstInteraction = () => {
       if (audioRef.current && !isMuted) {
@@ -42,7 +40,11 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="font-sans antialiased selection:bg-party-red selection:text-white">
+    <div className="font-sans antialiased text-stone-200 selection:bg-red-900 selection:text-yellow-500 bg-black min-h-screen relative">
+      
+      {/* Global Noise Texture */}
+      <div className="fixed inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0"></div>
+
       {/* Loading Intro */}
       <AnimatePresence>
         {isLoading && (
@@ -52,17 +54,24 @@ const App: React.FC = () => {
 
       <Navbar />
 
-      {/* Audio Control - Moved down to not overlap navbar */}
-      <div className="fixed top-20 right-4 md:right-6 z-50">
+      {/* Audio Control */}
+      <div className="fixed top-24 right-4 md:right-8 z-50">
         <button 
           onClick={toggleAudio}
-          className="bg-deep-dark/50 hover:bg-deep-dark/80 backdrop-blur-md p-3 rounded-full text-white border border-white/20 transition-all shadow-lg group"
-          title={isMuted ? "Bật nhạc nền" : "Tắt nhạc nền"}
+          className={`relative w-12 h-12 rounded-full flex items-center justify-center border-2 transition-all duration-300 shadow-[0_0_20px_rgba(0,0,0,0.5)] group ${
+            isMuted 
+              ? 'bg-stone-900/80 border-stone-600 text-stone-500 hover:border-red-500 hover:text-red-500' 
+              : 'bg-stone-900/80 border-yellow-600 text-yellow-500 hover:bg-yellow-900/20 shadow-[0_0_15px_rgba(234,179,8,0.3)]'
+          }`}
+          title={isMuted ? "Bật nhạc hào hùng" : "Tắt nhạc"}
         >
           {isMuted ? (
-            <VolumeX size={20} className="group-hover:text-red-400 transition-colors" />
+            <VolumeX size={20} />
           ) : (
-            <Volume2 size={20} className="animate-pulse text-party-gold" />
+            <>
+              <span className="absolute inset-0 rounded-full animate-ping bg-yellow-600/20"></span>
+              <Volume2 size={20} />
+            </>
           )}
         </button>
         <audio ref={audioRef} loop>
@@ -71,7 +80,7 @@ const App: React.FC = () => {
         </audio>
       </div>
 
-      <main>
+      <main className="relative z-10">
         <Hero />
         <Knowledge />
         <Timeline />
@@ -82,11 +91,28 @@ const App: React.FC = () => {
         <Room />
         <ChatWidget theme="dark" />
         
-        {/* Simple Footer replacing Closing section */}
-        <footer className="bg-slate-900 py-8 border-t border-slate-800 text-center">
-           <p className="text-slate-500 text-sm">
-             © 2021 Lịch sử Đảng Cộng sản Việt Nam - Dự án Thuyết trình Giáo dục
-           </p>
+        {/* Footer */}
+        <footer className="bg-[#0c0a09] py-16 border-t border-stone-800 relative overflow-hidden">
+           {/* Decoration Line */}
+           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-yellow-700 to-transparent"></div>
+           
+           <div className="container mx-auto px-4 text-center">
+              <div className="mb-6 flex justify-center">
+                 <div className="p-3 border border-stone-700 rounded-full bg-stone-900/50">
+                    <Star size={24} className="text-yellow-600 fill-current" />
+                 </div>
+              </div>
+              
+              <h3 className="text-stone-300 font-serif font-bold text-lg mb-2 uppercase tracking-widest">
+                Lịch sử Đảng Cộng sản Việt Nam
+              </h3>
+              
+              <p className="text-stone-500 text-xs font-mono uppercase tracking-[0.2em] mb-8">
+                Dự án Thuyết trình Giáo dục • 2025
+              </p>
+
+              <div className="h-px w-full max-w-xs mx-auto bg-gradient-to-r from-transparent via-stone-800 to-transparent"></div>
+           </div>
         </footer>
       </main>
     </div>

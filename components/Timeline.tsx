@@ -4,7 +4,6 @@ import { TIMELINE_DATA } from '../constants';
 import { TimelineEvent } from '../types';
 import { X, Calendar, Star, ChevronRight, Sparkles } from 'lucide-react';
 
-// Modal Component
 const EventModal: React.FC<{
   event: TimelineEvent | null;
   onClose: () => void;
@@ -17,80 +16,105 @@ const EventModal: React.FC<{
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+        className="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4"
         onClick={onClose}
       >
         <motion.div
-          initial={{ scale: 0.9, opacity: 0, y: 20 }}
+          initial={{ scale: 0.95, opacity: 0, y: 30 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
-          exit={{ scale: 0.9, opacity: 0, y: 20 }}
-          transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-hidden shadow-2xl border border-slate-700"
+          exit={{ scale: 0.95, opacity: 0, y: 30 }}
+          transition={{ type: "spring", damping: 30, stiffness: 300 }}
+          className="bg-stone-900 rounded-sm w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-yellow-600/30 relative"
           onClick={(e) => e.stopPropagation()}
         >
+          {/* Decorative corners for Modal */}
+          <div className="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-yellow-600/50 rounded-tl-sm pointer-events-none z-10" />
+          <div className="absolute top-0 right-0 w-16 h-16 border-r-2 border-t-2 border-yellow-600/50 rounded-tr-sm pointer-events-none z-10" />
+          <div className="absolute bottom-0 left-0 w-16 h-16 border-l-2 border-b-2 border-yellow-600/50 rounded-bl-sm pointer-events-none z-10" />
+          <div className="absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-yellow-600/50 rounded-br-sm pointer-events-none z-10" />
+
           {/* Header with Image */}
-          <div className="relative">
+          <div className="relative h-64 md:h-72">
             {event.image ? (
-              <div className="h-48 overflow-hidden">
+              <>
                 <img 
                   src={event.image} 
                   alt={event.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover grayscale-[30%] sepia-[20%]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent" />
-              </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-stone-900 via-stone-900/40 to-transparent" />
+              </>
             ) : (
-              <div className="h-32 bg-gradient-to-r from-party-red to-party-gold opacity-30" />
+              <div className="w-full h-full bg-gradient-to-br from-stone-800 to-black" />
             )}
             
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/70 transition-colors border border-white/20"
+              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center text-stone-300 hover:text-white hover:bg-red-900/80 transition-colors border border-white/10 z-20 group"
             >
-              <X size={20} />
+              <X size={20} className="group-hover:scale-110 transition-transform" />
             </button>
 
             {/* Year Badge */}
-            <div className="absolute bottom-4 left-6">
-              <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${event.highlight ? 'bg-party-red' : 'bg-slate-700'} shadow-lg`}>
-                <Calendar size={16} />
-                <span className="font-bold text-lg">{event.year}</span>
-                {event.highlight && <Star size={14} className="text-party-gold fill-party-gold" />}
-              </div>
+            <div className="absolute bottom-0 left-0 p-6 w-full">
+               <motion.div 
+                 initial={{ y: 20, opacity: 0 }}
+                 animate={{ y: 0, opacity: 1 }}
+                 transition={{ delay: 0.2 }}
+                 className="flex items-end gap-4"
+               >
+                 <div className={`px-4 py-2 border ${event.highlight ? 'bg-red-900/80 border-red-500 text-white shadow-[0_0_15px_rgba(220,38,38,0.5)]' : 'bg-stone-800/80 border-stone-600 text-stone-300'} backdrop-blur-md`}>
+                   <div className="flex items-center gap-2">
+                      <Calendar size={16} />
+                      <span className="font-serif font-bold text-xl tracking-wider">{event.year}</span>
+                   </div>
+                 </div>
+                 {event.highlight && (
+                    <div className="bg-yellow-600/20 border border-yellow-500 text-yellow-500 px-3 py-1 rounded-sm backdrop-blur-md flex items-center gap-1">
+                       <Star size={14} fill="currentColor" />
+                       <span className="text-xs font-bold uppercase tracking-widest">Sự kiện trọng đại</span>
+                    </div>
+                 )}
+               </motion.div>
             </div>
           </div>
 
-          {/* Content */}
-          <div className="p-6 overflow-y-auto max-h-[calc(85vh-12rem)]">
-            <h2 className="text-2xl md:text-3xl font-serif font-bold text-white mb-4">
+          {/* Content Scrollable Area */}
+          <div className="p-6 md:p-8 overflow-y-auto max-h-[calc(90vh-18rem)] bg-stone-900 custom-scrollbar">
+            <h2 className="text-2xl md:text-4xl font-serif font-bold text-yellow-500 mb-6 drop-shadow-sm leading-tight">
               {event.title}
             </h2>
 
-            <p className="text-slate-300 leading-relaxed mb-6">
-              {event.details || event.description}
-            </p>
+            <div className="prose prose-invert max-w-none">
+               <p className="text-stone-300 leading-relaxed text-lg font-serif border-l-2 border-stone-700 pl-4 mb-8">
+                 {event.details || event.description}
+               </p>
+            </div>
 
             {/* Key Points */}
             {event.keyPoints && event.keyPoints.length > 0 && (
-              <div className="bg-slate-800/50 rounded-xl p-5 border border-slate-700">
-                <h3 className="text-party-gold font-bold mb-4 flex items-center gap-2">
-                  <Sparkles size={18} />
+              <div className="bg-black/30 p-6 border border-stone-800 relative mt-8">
+                {/* Decoration line */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-stone-900 px-4 text-yellow-600">
+                   <Sparkles size={20} fill="currentColor" />
+                </div>
+                
+                <h3 className="text-stone-400 font-bold mb-4 text-xs uppercase tracking-[0.2em] text-center">
                   Điểm nổi bật
                 </h3>
-                <ul className="space-y-3">
+                
+                <ul className="space-y-4">
                   {event.keyPoints.map((point, index) => (
                     <motion.li
                       key={index}
-                      initial={{ opacity: 0, x: -20 }}
+                      initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      className="flex items-start gap-3"
+                      transition={{ delay: 0.3 + index * 0.1 }}
+                      className="flex items-start gap-4 group"
                     >
-                      <div className="w-6 h-6 rounded-full bg-party-red/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <ChevronRight size={14} className="text-party-red" />
-                      </div>
-                      <span className="text-slate-300 text-sm leading-relaxed">{point}</span>
+                      <div className="mt-1.5 w-1.5 h-1.5 bg-red-600 rotate-45 group-hover:bg-yellow-500 transition-colors" />
+                      <span className="text-stone-300 text-base leading-relaxed font-serif">{point}</span>
                     </motion.li>
                   ))}
                 </ul>
@@ -98,13 +122,13 @@ const EventModal: React.FC<{
             )}
           </div>
 
-          {/* Footer */}
-          <div className="p-4 border-t border-slate-700 bg-slate-900/50">
+          {/* Footer Actions */}
+          <div className="p-4 border-t border-stone-800 bg-stone-950 flex justify-end">
             <button
               onClick={onClose}
-              className="w-full py-3 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-semibold transition-colors"
+              className="px-8 py-2 border border-stone-600 text-stone-400 hover:text-white hover:border-white hover:bg-white/5 transition-all uppercase text-xs tracking-widest font-bold"
             >
-              Đóng
+              Đóng lại
             </button>
           </div>
         </motion.div>
@@ -118,124 +142,134 @@ const Timeline: React.FC = () => {
 
   return (
     <>
-      <section id="timeline" className="py-20 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
-        {/* Background decoration */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 -left-20 w-96 h-96 bg-party-red/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-party-gold/10 rounded-full blur-3xl" />
-        </div>
-
-        <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-deep-dark to-transparent z-10" />
+      <section id="timeline" className="py-24 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-stone-900 via-[#1a0505] to-black relative overflow-hidden min-h-screen">
         
-        <div className="container mx-auto px-4 relative z-20">
-          {/* Header */}
+        {/* Background Textures */}
+        <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+        <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-black to-transparent z-10"></div>
+        
+        <div className="container mx-auto px-4 relative z-20 max-w-6xl">
+          {/* Section Header */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-24"
           >
-            <div className="inline-flex items-center gap-2 bg-party-gold/20 text-party-gold px-4 py-2 rounded-full text-sm font-semibold mb-4">
-              <Calendar size={18} />
-              1954 - 1965
+            <div className="inline-block relative mb-6">
+               <div className="absolute inset-0 bg-yellow-600/20 blur-xl rounded-full" />
+               <div className="relative border border-yellow-600/30 bg-black/40 backdrop-blur-md px-6 py-2 flex items-center gap-3 text-yellow-500 font-serif uppercase tracking-[0.2em] text-xs md:text-sm shadow-lg">
+                  <Calendar size={16} />
+                  <span>Giai đoạn 1954 - 1965</span>
+               </div>
             </div>
-            <h2 className="text-3xl md:text-5xl font-serif text-party-gold mb-4">
-              Dòng Chảy Lịch Sử
+            
+            <h2 className="text-4xl md:text-6xl font-serif font-bold text-stone-100 mb-6 drop-shadow-2xl">
+              Dòng Chảy <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-yellow-700">Lịch Sử</span>
             </h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">
-              Những mốc son quan trọng trong giai đoạn xây dựng CNXH ở miền Bắc và đấu tranh giải phóng miền Nam
+            
+            <div className="h-px w-24 bg-gradient-to-r from-transparent via-stone-500 to-transparent mx-auto my-6" />
+            
+            <p className="text-stone-400 max-w-2xl mx-auto font-serif text-lg italic">
+              "Những mốc son quan trọng trong giai đoạn xây dựng CNXH ở miền Bắc và đấu tranh giải phóng miền Nam."
             </p>
           </motion.div>
 
-          {/* Timeline */}
-          <div className="relative max-w-5xl mx-auto">
+          {/* Timeline Container */}
+          <div className="relative">
             {/* Center Line */}
-            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-party-gold via-party-red to-party-gold transform md:-translate-x-1/2" />
+            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-yellow-600/50 to-transparent transform md:-translate-x-1/2" />
+            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-yellow-500/20 to-transparent transform md:-translate-x-1/2 blur-[2px]" />
 
-            <div className="space-y-8 md:space-y-12">
+            <div className="space-y-16 md:space-y-24">
               {TIMELINE_DATA.map((event, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.7, delay: index * 0.1 }}
                   className={`relative flex items-center ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
                 >
-                  {/* Timeline Dot */}
-                  <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 z-20">
+                  {/* Timeline Node */}
+                  <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 z-20 flex items-center justify-center">
+                    {/* Glow effect */}
+                    <div className={`absolute inset-0 bg-yellow-500/20 blur-xl rounded-full ${event.highlight ? 'opacity-100' : 'opacity-0'}`} />
+                    
                     <motion.div
-                      whileHover={{ scale: 1.2 }}
-                      className={`w-4 h-4 rounded-full border-4 ${
+                      whileHover={{ scale: 1.2, rotate: 90 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                      className={`w-4 h-4 md:w-6 md:h-6 transform rotate-45 border-2 transition-all duration-300 cursor-pointer ${
                         event.highlight 
-                          ? 'bg-party-gold border-party-red shadow-[0_0_20px_rgba(251,191,36,0.5)]' 
-                          : 'bg-party-red border-slate-900 shadow-[0_0_10px_rgba(215,25,32,0.5)]'
+                          ? 'bg-red-600 border-yellow-400 shadow-[0_0_15px_rgba(234,179,8,0.6)]' 
+                          : 'bg-stone-900 border-stone-500 shadow-[0_0_10px_rgba(0,0,0,0.5)] group-hover:border-yellow-500'
                       }`}
+                      onClick={() => setSelectedEvent(event)}
                     />
-                    {event.highlight && (
-                      <motion.div
-                        className="absolute inset-0 rounded-full bg-party-gold"
-                        animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                      />
-                    )}
                   </div>
 
-                  {/* Empty Space for alternating */}
+                  {/* Empty Space for alignment */}
                   <div className="hidden md:block md:w-1/2" />
 
-                  {/* Content Card */}
-                  <div className={`w-full md:w-1/2 pl-12 md:pl-0 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
+                  {/* Event Card */}
+                  <div className={`w-full md:w-1/2 pl-12 md:pl-0 ${index % 2 === 0 ? 'md:pr-16' : 'md:pl-16'}`}>
                     <motion.div
-                      whileHover={{ scale: 1.02, y: -5 }}
+                      whileHover={{ y: -5 }}
                       onClick={() => setSelectedEvent(event)}
-                      className={`group cursor-pointer p-5 rounded-2xl border backdrop-blur-sm transition-all duration-300 ${
+                      className={`group cursor-pointer relative overflow-hidden transition-all duration-500 ${
                         event.highlight 
-                          ? 'bg-gradient-to-br from-red-900/40 to-red-800/20 border-party-red/50 hover:border-party-gold shadow-lg shadow-red-900/20' 
-                          : 'bg-slate-800/50 border-slate-700/50 hover:border-slate-500 hover:bg-slate-800/80'
+                          ? 'border-l-2 border-yellow-600' 
+                          : 'border-l-2 border-stone-700 hover:border-stone-500'
                       }`}
                     >
-                      {/* Year Badge */}
-                      <div className="flex items-center justify-between mb-3">
-                        <span className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-bold ${
-                          event.highlight 
-                            ? 'bg-party-red text-white' 
-                            : 'bg-slate-700 text-slate-300'
-                        }`}>
-                          <Calendar size={14} />
-                          {event.year}
-                        </span>
-                        {event.highlight && (
-                          <Star size={18} className="text-party-gold fill-party-gold" />
-                        )}
-                      </div>
+                      {/* Card Content Container */}
+                      <div className={`p-6 bg-black/40 backdrop-blur-sm border-y border-r border-stone-800/50 hover:bg-stone-900/60 transition-colors ${event.highlight ? 'bg-red-950/10' : ''}`}>
+                         
+                         {/* Header Info */}
+                         <div className="flex items-center justify-between mb-4">
+                            <span className={`font-serif font-black text-3xl md:text-5xl opacity-20 absolute top-2 right-4 pointer-events-none select-none ${event.highlight ? 'text-yellow-600' : 'text-stone-600'}`}>
+                               {event.year}
+                            </span>
+                            
+                            <div className={`inline-flex items-center gap-2 px-3 py-1 text-xs font-bold uppercase tracking-widest border ${
+                               event.highlight 
+                               ? 'bg-red-900/30 border-red-500/50 text-red-400' 
+                               : 'bg-stone-800/50 border-stone-600/50 text-stone-400'
+                            }`}>
+                               {event.year}
+                            </div>
+                         </div>
 
-                      {/* Title */}
-                      <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-2 group-hover:text-party-gold transition-colors">
-                        {event.title}
-                      </h3>
+                         {/* Title */}
+                         <h3 className={`text-xl md:text-2xl font-serif font-bold mb-3 transition-colors ${
+                            event.highlight ? 'text-yellow-500' : 'text-stone-200 group-hover:text-yellow-500'
+                         }`}>
+                           {event.title}
+                         </h3>
 
-                      {/* Description */}
-                      <p className="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-2">
-                        {event.description}
-                      </p>
+                         {/* Description */}
+                         <p className="text-stone-400 text-sm md:text-base leading-relaxed mb-5 line-clamp-3 font-serif">
+                           {event.description}
+                         </p>
 
-                      {/* Image Preview */}
-                      {event.image && (
-                        <div className="relative h-32 rounded-xl overflow-hidden mb-4">
-                          <img 
-                            src={event.image} 
-                            alt={event.title}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                        </div>
-                      )}
+                         {/* Image Preview */}
+                         {event.image && (
+                           <div className="relative h-40 w-full mb-4 overflow-hidden border border-stone-700/50 opacity-80 group-hover:opacity-100 transition-opacity">
+                              <img 
+                                src={event.image} 
+                                alt={event.title}
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale-[50%] group-hover:grayscale-0"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60" />
+                           </div>
+                         )}
 
-                      {/* Click hint */}
-                      <div className="flex items-center gap-2 text-xs text-slate-500 group-hover:text-party-gold transition-colors">
-                        <span>Xem chi tiết</span>
-                        <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                         {/* Action Link */}
+                         <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-stone-500 group-hover:text-yellow-500 transition-colors">
+                           <span>Xem tư liệu</span>
+                           <div className="w-8 h-px bg-current transition-all group-hover:w-12" />
+                           <ChevronRight size={14} />
+                         </div>
                       </div>
                     </motion.div>
                   </div>
@@ -243,9 +277,9 @@ const Timeline: React.FC = () => {
               ))}
             </div>
 
-            {/* End marker */}
-            <div className="absolute left-4 md:left-1/2 bottom-0 transform md:-translate-x-1/2">
-              <div className="w-6 h-6 rounded-full bg-party-gold border-4 border-slate-900 shadow-[0_0_20px_rgba(251,191,36,0.5)]" />
+            {/* End Marker */}
+            <div className="absolute left-4 md:left-1/2 bottom-0 transform md:-translate-x-1/2 translate-y-1/2">
+               <div className="w-2 h-16 bg-gradient-to-b from-yellow-600/50 to-transparent" />
             </div>
           </div>
         </div>

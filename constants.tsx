@@ -19,6 +19,7 @@ export const TIMELINE_DATA: TimelineEvent[] = [
     year: "1955-1957",
     title: "Khôi phục kinh tế",
     description: "Miền Bắc hoàn thành cải cách ruộng đất, khôi phục kinh tế sau chiến tranh.",
+    image: "https://img.loigiaihay.com/picture/2020/0205/nong-dan-nhan-ruong-dat.png",
     details: "Sau 9 năm kháng chiến chống Pháp, miền Bắc bị tàn phá nặng nề. Đảng và Nhà nước tập trung khôi phục kinh tế, hàn gắn vết thương chiến tranh. Cải cách ruộng đất được tiến hành để xóa bỏ chế độ sở hữu ruộng đất phong kiến.",
     keyPoints: [
       "Hoàn thành cải cách ruộng đất, chia ruộng cho nông dân",
@@ -72,6 +73,7 @@ export const TIMELINE_DATA: TimelineEvent[] = [
     year: "1961-1965",
     title: "Chống 'Chiến tranh đặc biệt'",
     description: "Quân dân miền Nam đánh bại chiến lược 'Chiến tranh đặc biệt' của Mỹ với các chiến thắng vang dội.",
+    image: "https://file3.qdnd.vn/data/images/5/2020/12/23/phucthang/11.jpg",
     details: "Từ năm 1961, Mỹ thực hiện chiến lược 'Chiến tranh đặc biệt' ở miền Nam - dùng quân đội Sài Gòn, cố vấn Mỹ, vũ khí Mỹ. Quân dân ta kiên cường đấu tranh theo phương châm 'Hai chân, Ba mũi, Ba vùng' và giành được nhiều thắng lợi quan trọng.",
     keyPoints: [
       "Chiến thắng Ấp Bắc (2/1/1963) - đánh bại 'trực thăng vận', 'thiết xa vận'",
