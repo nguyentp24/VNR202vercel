@@ -34,42 +34,61 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? 'bg-deep-dark/90 backdrop-blur-md py-2 shadow-lg border-b border-white/5' : 'bg-transparent py-4'}`}>
-      <div className="container mx-auto px-4 flex justify-between items-center">
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
+      scrolled 
+        ? 'bg-black/80 backdrop-blur-md py-3 border-stone-800 shadow-xl' 
+        : 'bg-transparent py-6 border-transparent'
+    }`}>
+      {/* Texture Overlay for Scrolled State */}
+      {scrolled && <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>}
+
+      <div className="container mx-auto px-6 flex justify-between items-center relative z-10">
+        
         {/* Logo */}
         <div 
-          className="flex items-center gap-2 cursor-pointer group" 
+          className="flex items-center gap-3 cursor-pointer group" 
           onClick={() => scrollToSection('hero')}
         >
-          <div className="w-8 h-8 bg-party-red rounded-full flex items-center justify-center border border-party-gold group-hover:scale-110 transition-transform">
-            <span className="text-party-gold font-bold text-xs">VN</span>
+          <div className="relative w-10 h-10 flex items-center justify-center">
+             <div className="absolute inset-0 bg-red-700 rounded-full border-2 border-yellow-500 shadow-[0_0_10px_rgba(234,179,8,0.4)] group-hover:shadow-[0_0_20px_rgba(234,179,8,0.6)] transition-all duration-300"></div>
+             <span className="relative z-10 text-yellow-400 font-black text-xs font-serif tracking-tighter">VN</span>
           </div>
+          
           <div className="flex flex-col">
-            <span className="text-white font-serif font-bold text-lg tracking-wider leading-none">1954-1965</span>
-            <span className="text-[10px] text-slate-400 uppercase tracking-widest hidden md:block">Đảng lãnh đạo</span>
+            <span className="text-stone-100 font-serif font-bold text-xl tracking-wide leading-none group-hover:text-yellow-500 transition-colors">
+              1954 - 1965
+            </span>
+            <span className="text-[9px] md:text-[10px] text-stone-500 uppercase tracking-[0.2em] font-bold mt-1 group-hover:text-stone-300 transition-colors">
+              Đảng Lãnh Đạo
+            </span>
           </div>
         </div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center space-x-8">
+        <div className="hidden lg:flex items-center space-x-1">
           {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className="text-sm font-medium text-slate-300 hover:text-party-gold transition-colors uppercase tracking-wide relative group py-1"
+              className="relative px-4 py-2 text-xs font-bold text-stone-400 hover:text-stone-100 transition-colors uppercase tracking-widest group font-serif"
             >
-              {item.label}
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-party-red transition-all duration-300 group-hover:w-full"></span>
+              <span className="relative z-10">{item.label}</span>
+              
+              {/* Hover Effect - Background Highlight */}
+              <span className="absolute inset-0 bg-white/5 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 rounded-sm"></span>
+              
+              {/* Active Indicator - Red Line */}
+              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-red-700 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-right group-hover:origin-left"></span>
             </button>
           ))}
         </div>
 
         {/* Mobile Menu Button */}
         <button 
-          className="md:hidden text-white p-1 hover:text-party-gold transition-colors"
+          className="lg:hidden p-2 text-stone-400 hover:text-yellow-500 hover:bg-white/5 rounded-sm transition-all border border-transparent hover:border-stone-700"
           onClick={() => setIsOpen(!isOpen)}
         >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
@@ -80,17 +99,23 @@ const Navbar: React.FC = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-deep-dark border-b border-party-red/30 overflow-hidden"
+            className="lg:hidden bg-[#1c1917] border-b border-yellow-600/30 overflow-hidden relative"
           >
-            <div className="flex flex-col p-4 space-y-1">
-              {navItems.map((item) => (
-                <button
+            <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+            
+            <div className="flex flex-col p-6 space-y-2 relative z-10">
+              {navItems.map((item, index) => (
+                <motion.button
                   key={item.id}
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: index * 0.05 }}
                   onClick={() => scrollToSection(item.id)}
-                  className="text-left text-slate-300 hover:text-white hover:bg-white/5 px-4 py-3 rounded transition-colors uppercase text-sm font-semibold tracking-wide"
+                  className="text-left text-stone-400 hover:text-yellow-500 hover:bg-white/5 px-4 py-3 rounded-sm transition-all uppercase text-xs font-bold tracking-[0.15em] border-l-2 border-transparent hover:border-yellow-600 flex items-center gap-3 group"
                 >
+                  <span className="w-1.5 h-1.5 rounded-full bg-stone-700 group-hover:bg-red-600 transition-colors"></span>
                   {item.label}
-                </button>
+                </motion.button>
               ))}
             </div>
           </motion.div>
