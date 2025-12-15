@@ -52,17 +52,17 @@ const MAP_COORDINATES: { [key: string]: { x: number; y: number } } = {
 const MapSection: React.FC = () => {
   const [activePoint, setActivePoint] = useState<string | null>(null);
   const [hoveredPoint, setHoveredPoint] = useState<string | null>(null);
-  
+
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const mapContainerRef = useRef<HTMLDivElement>(null);
-  
+
   const MIN_ZOOM = 1;
   const MAX_ZOOM = 3;
   const ZOOM_STEP = 0.5;
-  
+
   const handleZoomIn = () => setZoom(prev => Math.min(prev + ZOOM_STEP, MAX_ZOOM));
   const handleZoomOut = () => {
     setZoom(prev => {
@@ -72,14 +72,14 @@ const MapSection: React.FC = () => {
     });
   };
   const handleReset = () => { setZoom(1); setPan({ x: 0, y: 0 }); };
-  
+
   const handleMouseDown = (e: React.MouseEvent) => {
     if (zoom > 1) {
       setIsDragging(true);
       setDragStart({ x: e.clientX - pan.x, y: e.clientY - pan.y });
     }
   };
-  
+
   const handleMouseMove = (e: React.MouseEvent) => {
     if (isDragging && zoom > 1) {
       const container = mapContainerRef.current;
@@ -93,13 +93,13 @@ const MapSection: React.FC = () => {
       }
     }
   };
-  
+
   const handleMouseUp = () => setIsDragging(false);
   const handleWheel = (e: React.WheelEvent) => { e.preventDefault(); e.deltaY < 0 ? handleZoomIn() : handleZoomOut(); };
 
   return (
     <section id="map" className="py-24 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-stone-900 via-[#1a0505] to-black text-stone-200 relative overflow-hidden min-h-screen">
-      
+
       {/* Background Texture */}
       <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
 
@@ -124,11 +124,11 @@ const MapSection: React.FC = () => {
         </motion.div>
 
         <div className="flex flex-col lg:flex-row items-start gap-8">
-          
+
           {/* MAP VISUAL CONTAINER */}
           <div className="w-full lg:w-3/5 relative">
             <div className="relative mx-auto bg-[#1a1a1a] rounded-sm p-3 border-4 border-stone-800 shadow-[0_0_40px_rgba(0,0,0,0.6)]" style={{ maxWidth: '600px' }}>
-              
+
               {/* Decorative Screws */}
               <div className="absolute top-2 left-2 w-2 h-2 rounded-full bg-stone-600 shadow-inner z-40" />
               <div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-stone-600 shadow-inner z-40" />
@@ -149,9 +149,8 @@ const MapSection: React.FC = () => {
                   whileTap={{ scale: 0.95 }}
                   onClick={handleZoomIn}
                   disabled={zoom >= MAX_ZOOM}
-                  className={`w-9 h-9 rounded-sm flex items-center justify-center shadow-lg transition-all border ${
-                    zoom >= MAX_ZOOM ? 'bg-stone-800 border-stone-700 text-stone-600' : 'bg-stone-700 border-stone-600 text-yellow-500 hover:bg-stone-600 hover:border-yellow-500'
-                  }`}
+                  className={`w-9 h-9 rounded-sm flex items-center justify-center shadow-lg transition-all border ${zoom >= MAX_ZOOM ? 'bg-stone-800 border-stone-700 text-stone-600' : 'bg-stone-700 border-stone-600 text-yellow-500 hover:bg-stone-600 hover:border-yellow-500'
+                    }`}
                 >
                   <ZoomIn size={16} />
                 </motion.button>
@@ -160,9 +159,8 @@ const MapSection: React.FC = () => {
                   whileTap={{ scale: 0.95 }}
                   onClick={handleZoomOut}
                   disabled={zoom <= MIN_ZOOM}
-                  className={`w-9 h-9 rounded-sm flex items-center justify-center shadow-lg transition-all border ${
-                    zoom <= MIN_ZOOM ? 'bg-stone-800 border-stone-700 text-stone-600' : 'bg-stone-700 border-stone-600 text-yellow-500 hover:bg-stone-600 hover:border-yellow-500'
-                  }`}
+                  className={`w-9 h-9 rounded-sm flex items-center justify-center shadow-lg transition-all border ${zoom <= MIN_ZOOM ? 'bg-stone-800 border-stone-700 text-stone-600' : 'bg-stone-700 border-stone-600 text-yellow-500 hover:bg-stone-600 hover:border-yellow-500'
+                    }`}
                 >
                   <ZoomOut size={16} />
                 </motion.button>
@@ -175,7 +173,7 @@ const MapSection: React.FC = () => {
                   <RotateCcw size={16} />
                 </motion.button>
               </div>
-              
+
               {/* Drag Hint */}
               <AnimatePresence>
                 {zoom > 1 && (
@@ -189,9 +187,9 @@ const MapSection: React.FC = () => {
                   </motion.div>
                 )}
               </AnimatePresence>
-              
+
               {/* Map Viewport */}
-              <div 
+              <div
                 ref={mapContainerRef}
                 className={`relative overflow-hidden bg-slate-900/50 border border-stone-700/50 ${zoom > 1 ? (isDragging ? 'cursor-grabbing' : 'cursor-grab') : ''}`}
                 onMouseDown={handleMouseDown}
@@ -200,26 +198,26 @@ const MapSection: React.FC = () => {
                 onMouseLeave={handleMouseUp}
                 onWheel={handleWheel}
               >
-                <div 
+                <div
                   className="transition-transform duration-300 ease-out origin-center"
                   style={{ transform: `scale(${zoom}) translate(${pan.x / zoom}px, ${pan.y / zoom}px)` }}
                 >
-                  <img 
-                    src="https://www.mapsofworld.com/vietnam/maps/vietnam-political-map.jpg"
+                  <img
+                    src="Political Map of Vietnam.png"
                     alt="Bản đồ Việt Nam"
                     className="w-full h-auto opacity-90 select-none"
                     style={{ filter: 'saturate(0.8) brightness(0.9)' }}
                     draggable={false}
                   />
-                  
+
                   {/* Dark Overlay */}
                   <div className="absolute inset-0 bg-black/20 pointer-events-none" />
 
                   {/* SVG Overlay */}
                   <svg className="absolute inset-0 w-full h-full pointer-events-none z-10" viewBox="0 0 100 100" preserveAspectRatio="none">
                     <defs>
-                      <filter id="glowRed"><feGaussianBlur stdDeviation="1" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-                      <filter id="glowBlue"><feGaussianBlur stdDeviation="1" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                      <filter id="glowRed"><feGaussianBlur stdDeviation="1" result="coloredBlur" /><feMerge><feMergeNode in="coloredBlur" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
+                      <filter id="glowBlue"><feGaussianBlur stdDeviation="1" result="coloredBlur" /><feMerge><feMergeNode in="coloredBlur" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
                       <linearGradient id="redGradient" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#DC2626" /><stop offset="100%" stopColor="#991B1B" /></linearGradient>
                       <linearGradient id="blueGradient" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#3B82F6" /><stop offset="100%" stopColor="#1D4ED8" /></linearGradient>
                     </defs>
@@ -253,10 +251,10 @@ const MapSection: React.FC = () => {
                       <motion.div
                         key={point.id}
                         className="absolute flex flex-col items-center justify-center"
-                        style={{ 
-                          left: `${coords.x}%`, 
+                        style={{
+                          left: `${coords.x}%`,
                           top: `${coords.y}%`,
-                          zIndex: zIndex 
+                          zIndex: zIndex
                         }}
                         initial={{ x: "-50%", y: "-50%", scale: 0, opacity: 0 }}
                         whileInView={{ x: "-50%", y: "-50%", scale: 1, opacity: 1 }}
@@ -279,7 +277,7 @@ const MapSection: React.FC = () => {
                               initial={{ opacity: 0, y: 5, scale: 0.9 }}
                               animate={{ opacity: 1, y: 0, scale: 1 }}
                               exit={{ opacity: 0, y: 5, scale: 0.9 }}
-                              className="absolute bottom-full mb-3 z-50 w-max pointer-events-none" 
+                              className="absolute bottom-full mb-3 z-50 w-max pointer-events-none"
                             >
                               <div className="relative bg-stone-900/95 backdrop-blur-sm px-4 py-2 rounded-sm border border-stone-600 shadow-[0_5px_15px_rgba(0,0,0,0.5)]">
                                 <span className="text-yellow-500 font-serif text-xs font-bold uppercase tracking-wider block text-center leading-none">
@@ -349,7 +347,7 @@ const MapSection: React.FC = () => {
                   className="bg-[#1c1917] p-6 rounded-sm border border-stone-700 shadow-2xl relative overflow-hidden"
                 >
                   <div className="absolute top-0 right-0 bg-red-900/80 text-red-200 text-[9px] font-bold px-3 py-1 transform rotate-45 translate-x-3 translate-y-2 border border-red-700">
-                     ĐỊA ĐIỂM
+                    ĐỊA ĐIỂM
                   </div>
                   {(() => {
                     const p = MAP_POINTS.find(x => x.id === activePoint);
@@ -358,27 +356,27 @@ const MapSection: React.FC = () => {
                         <div className="flex items-center space-x-4 mb-6 border-b border-stone-800 pb-6 border-dashed">
                           <div className={`w-14 h-14 rounded-full flex items-center justify-center border-2 border-stone-700 shadow-inner bg-stone-900`}>
                             <div className="text-yellow-500 scale-125">
-                               {getPointIcon(p?.type)}
+                              {getPointIcon(p?.type)}
                             </div>
                           </div>
                           <div>
                             <h3 className="text-2xl font-serif font-bold text-stone-100 uppercase tracking-wide">{p?.label}</h3>
                             <span className="text-xs text-yellow-600 uppercase tracking-[0.15em] font-bold mt-1 block">
                               {p?.type === 'capital' ? 'Thủ đô' :
-                               p?.type === 'military' ? 'Đơn vị quân sự' :
-                               p?.type === 'navy' ? 'Lực lượng hải quân' :
-                               p?.type === 'route' ? 'Tuyến đường' :
-                               p?.type === 'base' ? 'Căn cứ địa' :
-                               p?.type === 'special' ? 'Lực lượng đặc biệt' :
-                               p?.type === 'battle' ? 'Trận đánh' :
-                               p?.type === 'uprising' ? 'Khởi nghĩa' : 'Địa điểm'}
+                                p?.type === 'military' ? 'Đơn vị quân sự' :
+                                  p?.type === 'navy' ? 'Lực lượng hải quân' :
+                                    p?.type === 'route' ? 'Tuyến đường' :
+                                      p?.type === 'base' ? 'Căn cứ địa' :
+                                        p?.type === 'special' ? 'Lực lượng đặc biệt' :
+                                          p?.type === 'battle' ? 'Trận đánh' :
+                                            p?.type === 'uprising' ? 'Khởi nghĩa' : 'Địa điểm'}
                             </span>
                           </div>
                         </div>
                         <div className="bg-stone-900/50 p-4 border-l-2 border-yellow-600 mb-6">
-                           <p className="text-base text-stone-300 leading-relaxed font-serif">
-                             {p?.desc}
-                           </p>
+                          <p className="text-base text-stone-300 leading-relaxed font-serif">
+                            {p?.desc}
+                          </p>
                         </div>
                         <button
                           onClick={() => setActivePoint(null)}
@@ -410,7 +408,7 @@ const MapSection: React.FC = () => {
                     <div className="bg-[#2a1212] border border-red-900/30 p-4 rounded-md">
                       <div className="flex items-start gap-3">
                         <div className="mt-2 w-8 h-1.5 bg-red-600 rounded-full shrink-0 shadow-[0_0_8px_rgba(220,38,38,0.6)]"></div>
-                        
+
                         <div>
                           <h4 className="text-red-400 font-bold font-serif text-base mb-1">
                             Đường Trường Sơn
@@ -425,7 +423,7 @@ const MapSection: React.FC = () => {
                     <div className="bg-[#0f172a] border border-blue-900/30 p-4 rounded-md">
                       <div className="flex items-start gap-3">
                         <div className="mt-2 w-8 h-1.5 bg-blue-600 rounded-full shrink-0 shadow-[0_0_8px_rgba(37,99,235,0.6)]"></div>
-                        
+
                         <div>
                           <h4 className="text-blue-400 font-bold font-serif text-base mb-1">
                             Đường biển
@@ -454,11 +452,10 @@ const MapSection: React.FC = () => {
                   <button
                     key={point.id}
                     onClick={() => setActivePoint(point.id)}
-                    className={`p-3 text-left transition-all duration-300 border rounded-sm hover:translate-x-1 ${
-                      activePoint === point.id 
-                        ? 'bg-yellow-900/30 text-yellow-500 border-yellow-700' 
-                        : 'bg-stone-900 border-stone-800 text-stone-400 hover:border-stone-600 hover:text-stone-200'
-                    }`}
+                    className={`p-3 text-left transition-all duration-300 border rounded-sm hover:translate-x-1 ${activePoint === point.id
+                      ? 'bg-yellow-900/30 text-yellow-500 border-yellow-700'
+                      : 'bg-stone-900 border-stone-800 text-stone-400 hover:border-stone-600 hover:text-stone-200'
+                      }`}
                   >
                     <div className="flex items-center gap-2">
                       <span className={activePoint === point.id ? 'text-yellow-500' : 'text-stone-600'}>
