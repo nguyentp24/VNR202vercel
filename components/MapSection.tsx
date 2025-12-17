@@ -203,7 +203,7 @@ const MapSection: React.FC = () => {
                   style={{ transform: `scale(${zoom}) translate(${pan.x / zoom}px, ${pan.y / zoom}px)` }}
                 >
                   <img
-                    src="Political Map of Vietnam.png"
+                    src="https://images.mapsofworld.com/vietnam/vietnam-political-map.jpg"
                     alt="Bản đồ Việt Nam"
                     className="w-full h-auto opacity-90 select-none"
                     style={{ filter: 'saturate(0.8) brightness(0.9)' }}
